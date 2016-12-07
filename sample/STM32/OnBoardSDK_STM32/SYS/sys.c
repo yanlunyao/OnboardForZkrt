@@ -96,6 +96,7 @@ volatile uint32_t posion_recv_flag = 0XFFFFFFFF;
 volatile uint32_t throw_recv_flag  = 0XFFFFFFFF;	
 volatile uint32_t camera_recv_flag = 0XFFFFFFFF;
 volatile uint32_t _read_count = 0; 	
+volatile uint32_t tcp_client_init_timeout;
 
 
 void delay_ms(uint16_t nms)								//最多传入65535ms

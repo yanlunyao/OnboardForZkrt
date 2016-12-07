@@ -69,18 +69,17 @@ void zkrt_read_tempture_ack(void)
 			}
 			//packet.data[25] = 0XFD;
 		}
+		else //modify by yanly
+		{
+			error_count = 0;
+			packet.data[25] = 0XFE;
+		}
 #elif defined _TEMPTURE_ADC_
 		if (1 > 0)
 		{
 			packet.data[25] = 0XFE;
 		}
-#endif	
-		else
-		{
-			error_count = 0;
-			packet.data[25] = 0XFE;
-		}
-		
+#endif
 		if ((tempture0>glo_tempture_high)||(tempture0<glo_tempture_low)||(tempture1>glo_tempture_high)||(tempture1<glo_tempture_low))
 		{
 			packet.data[25] = 0XFD;

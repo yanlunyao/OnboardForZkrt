@@ -6,6 +6,8 @@
 #define ADC_BUFFER_SIZE   30 
 #elif defined _TEMPTURE_ADC_
 #define ADC_BUFFER_SIZE   50 
+#else
+#define ADC_BUFFER_SIZE   10 
 #endif
 
 #define _25V_value 0

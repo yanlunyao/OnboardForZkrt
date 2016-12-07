@@ -1,17 +1,15 @@
 #ifndef __SYS_H
 #define __SYS_H	 
 
+#include "hw_config.h"
 #include "stm32f4xx.h"
+#include "port.h"
 #include <stdio.h>
 #include <string.h>
 
 #define _Send_Normal  1
 //#define _Send_test    2
-
-
-//#define _TEMPTURE_IO_		1
-#define _TEMPTURE_ADC_	    2
-																	  
+														  
 //IO口操作宏定义
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
@@ -78,6 +76,7 @@ extern volatile uint32_t posion_recv_flag;
 extern volatile uint32_t throw_recv_flag;
 extern volatile uint32_t camera_recv_flag;
 extern volatile uint32_t _read_count;
+extern volatile uint32_t tcp_client_init_timeout;
 
 extern NVIC_InitTypeDef NVIC_InitStructure;
 
@@ -96,6 +95,9 @@ void NVICX_init(uint8_t pre_prrty, uint8_t sub_prrty);
 #elif defined _TEMPTURE_ADC_
 #define TEMPTURE_LOW_EXTRA  0
 #define TEMPTURE_HIGH_EXTRA 10000
+#else
+#define TEMPTURE_LOW_EXTRA  999
+#define TEMPTURE_HIGH_EXTRA 999
 #endif
 
 extern short glo_tempture_low;
@@ -108,10 +110,44 @@ extern short tempture0;
 extern short tempture1;
 
 extern uint8_t msg_smartbat_buffer[30];
+
+
+//! This is the default status printing mechanism
+#define ZKRT_LOG(title, fmt, ...)                                  \
+  if ((title))                                                            \
+  {                                                                       \
+    fprintf(stout, "%s %s,line %d: " fmt,    \
+        (title) ? (title) : "NONE", __func__, __LINE__, ##__VA_ARGS__));  \
+	}
+//    int len = (sprintf(DJI::onboardSDK::buffer, "%s %s,line %d: " fmt,    \
+//        (title) ? (title) : "NONE", __func__, __LINE__, ##__VA_ARGS__));  \
+//    if ((len != -1) && (len < 1024))                                      \
+//      printf("%s", buf);                                         \
+//    else                                                                  \
+//      printf("ERROR: log printer inner fault\n");           \
+  }
+#ifdef LOG_DEBUG_DATA
+#define LOG_DEBUG "DEBUG"
+#else
+#define LOG_DEBUG 0
 #endif
 
+#ifdef LOG_ERROR_DATA
+#define LOG_ERROR "ERROR"
+#else
+#define LOG_ERROR 0
+#endif
 
+#ifdef LOG_WARNING_DATA
+#define LOG_WARNING "WARNING"
+#else
+#define LOG_WARNING 0
+#endif
 
+#ifdef LOG_NOTICE_DATA
+#define LOG_NOTICE "NOTICE"
+#else
+#define LOG_NOTICE 0
+#endif
 
-
-
+#endif

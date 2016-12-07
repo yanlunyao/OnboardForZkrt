@@ -111,26 +111,27 @@ void TIM1_UP_TIM10_IRQHandler(void)
 {
   if (TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
   {
-    virtualrc.sendData(myVRCdata);
+    virtualrc.sendData(myVRCdata);//TIM_Cmd(TIM1, DISABLE); 目前代码里定时没跑，故不会运行到这里, DJI例程是在用户串口里接收到命令后才开定时  //yanly
   }
   TIM_ClearFlag(TIM1, TIM_FLAG_Update);
 }
 
-void TIM2_IRQHandler()
-{
-  if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
-  {
-    if ((myTerminal.cmdIn[2] == 0x04) && (myTerminal.cmdIn[3] == 0x01))
-    {
-      flight.setFlight(&flightData);
-    }
-    else
-    {
-      TIM_Cmd(TIM2, DISABLE);
-    }
-  }
-  TIM_ClearFlag(TIM2, TIM_FLAG_Update);
-}
+//modify by yanly
+//void TIM2_IRQHandler()
+//{
+//  if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
+//  {
+//    if ((myTerminal.cmdIn[2] == 0x04) && (myTerminal.cmdIn[3] == 0x01))
+//    {
+//      flight.setFlight(&flightData);
+//    }
+//    else
+//    {
+//      TIM_Cmd(TIM2, DISABLE);
+//    }
+//  }
+//  TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+//}
 #ifdef __cplusplus
 }
 #endif //__cplusplus

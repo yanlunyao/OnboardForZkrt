@@ -156,7 +156,7 @@ void CoreAPI::notifyCaller(Header *protocolHeader)
   serialDevice->freeACK();
 }
 
-void CoreAPI::sendPoll()
+void CoreAPI::sendPoll()	//判断session的逻辑，如果session是需要验证ack，那么在超时未收到ack时，执行session重发等逻辑。//by yanly
 {
   unsigned char i;
   time_ms curTimestamp;

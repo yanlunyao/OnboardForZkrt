@@ -20,6 +20,8 @@ void led_init(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | RCC_AHB1Periph_GPIOE, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE); //yanly test
+	
 	
  	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
@@ -44,8 +46,31 @@ void led_init(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_9;
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
 	GPIO_ResetBits(GPIOE, GPIO_Pin_2 | GPIO_Pin_9);
+	
+	//test yanly
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_9;
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
+	GPIO_ResetBits(GPIOF, GPIO_Pin_10 | GPIO_Pin_9);
 }
 
-
-
-
+/*
+@brief: 所有LED灯一秒闪速一次
+*/
+void led_test(void)
+{
+	while(1)
+	{
+		delay_ms(500);
+//		_RUN_LED = !_RUN_LED;
+//		_ALARM_LED = !_ALARM_LED;
+//		_HS_LED = !_HS_LED;
+//		_DJI_UART_TX_LED = !_DJI_UART_TX_LED;
+//		_DJI_UART_RX_LED = !_DJI_UART_RX_LED;
+//		_TEST_UART_TX_LED = !_TEST_UART_TX_LED;
+//		_TEST_UART_RX_LED = !_TEST_UART_RX_LED;
+//		_CAN1_RX_LED  =!_CAN1_RX_LED;
+//		_CAN1_TX_LED = !_CAN1_TX_LED;	
+		PFout(9) = ! PFout(9);
+		PFout(10) = ! PFout(10);
+	}
+}	

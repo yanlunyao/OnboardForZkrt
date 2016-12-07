@@ -15,6 +15,8 @@ void usart1_tx_DMA(void);
 
 uint8_t usart1_rx_check(void);
 uint8_t usart1_rx_byte(void);
+
+void usart1_tx_send_msg(uint8_t* msg, uint16_t msg_size); //test yanly
 #endif
 
 
