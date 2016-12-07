@@ -24,28 +24,49 @@ extern "C"
 #include "flash.h"
 #include "can.h"
 #include "ds18b20.h"
+#include "osqtmr.h"
+#include "ostmr.h"
+#include "sram.h"
+#include "malloc.h"
+#include "lwip_comm.h"	
 }
 #endif //__cplusplus
 
 
 void BSPinit()
 {
- SystemInit ();
- RCC_Configuration();
-  SystickConfig();
-NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-delay_init();
-led_init();
-  TIM4_Int_Init();
-  Timer1Config();
-  Timer2Config();
-#if defined _TEMPTURE_IO_
-	DS18B20_Init();																		
-#endif
-  IIC_Init();
-  STMFLASH_Init();
-  Usart_DJI_Config();
-    uart_init();
-  ADC1_Init();
-  CAN1_Mode_Init(CAN_Mode_Normal);
+//	SystemInit(); //modify by yanly
+//	RCC_Configuration(); //现在是内部时钟，到时候改为外部晶振提供时钟的方式 //need to modify in the future //todo yanly
+	SystickConfig();
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+//	delay_init();
+	led_init();
+	FSMC_SRAM_Init();
+	mymem_init(SRAMIN);		//初始化内部内存池
+	mymem_init(SRAMEX);		//初始化外部内存池
+	b_ostmr_init();  //timer3
+	b_systmr_init(); //timer4
+	lwip_timer_init();
+//#ifdef USE_SRAM
+//	//todo yanly
+//#endif	
+//	TIM4_Int_Init();
+//	Timer1Config();
+//	Timer2Config();
+//#ifdef _TEMPTURE_IO_
+//	DS18B20_Init();																		
+//#endif
+//#ifdef USE_IIC	
+//	IIC_Init();
+//#endif	
+//	STMFLASH_Init();
+//	Usart_DJI_Config();
+	uart_init();
+//#ifdef _TEMPTURE_ADC_	
+//	ADC1_Init();
+//#endif
+//#ifdef USE_CAN1
+//	CAN1_Mode_Init(CAN_Mode_Normal);
+//#endif
+  lwip_comm_init();
 }

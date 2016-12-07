@@ -81,7 +81,6 @@ void STMFLASH_Read(void)
 		flash_addr++;
 	}
 }
-
 //将flash里的值存储到缓冲数组里，再在bsp里用这个数组给各个变量赋值
 void STMFLASH_Init(void)
 {
@@ -101,14 +100,3 @@ void STMFLASH_Init(void)
 		STMFLASH_Write();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

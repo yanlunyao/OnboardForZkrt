@@ -18,19 +18,19 @@ void  ADC1_Init(void)
 	DMA_Cmd(DMA2_Stream4, ENABLE);       
 	
 #if defined _TEMPTURE_IO_	
- GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;//PA4，25.2V；PA5，5V
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5;//PA4，25.2V；PA5，5V
 #elif defined _TEMPTURE_ADC_
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;//PA4，25.2V；PA5，5V；PA6，温度0；PA7，温度1
 #endif
 
-GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
 // GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	//速度50MHz
-GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
-    ADC_DeInit();
+  ADC_DeInit();
  
   ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
 	ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;
@@ -86,7 +86,7 @@ uint16_t ADC1_get_value(uint8_t read_type)
 		break;
 		case 3:
 		case 4:
-			sum = sum*1650/1024;
+			sum = sum*1650/1024; //why? yanly
 		break;
 	}
 	
