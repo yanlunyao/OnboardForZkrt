@@ -148,8 +148,8 @@ typedef union
 
 typedef enum
 {
-	FALSE = 0,
-	TRUE  = 1
+	FALSE_P = 0,
+	TRUE_P  = 1
 }bool_t; 
 
 //#define  ENABLE     true

@@ -3,7 +3,6 @@
 
 #include "hw_config.h"
 #include "stm32f4xx.h"
-#include "port.h"
 #include <stdio.h>
 #include <string.h>
 

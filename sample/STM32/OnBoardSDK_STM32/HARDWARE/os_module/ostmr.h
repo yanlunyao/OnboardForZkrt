@@ -12,7 +12,7 @@ Purpose:      OS timer header files for application purpose only
 #define   _OSTMR_H_
 
 #include "sys.h"
-
+#include "port.h"
 
 typedef u32 ostmr_t;
 

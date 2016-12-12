@@ -1,7 +1,7 @@
 #ifndef _LWIPAPP_H
 #define _LWIPAPP_H
 
-void lwip_process(void);
+void lwip_prcs(void);
 
 
 #endif

@@ -29,6 +29,8 @@ extern "C"
 #include "sram.h"
 #include "malloc.h"
 #include "lwip_comm.h"	
+#include "exfuns.h"
+#include "usb_usr_process.h"
 }
 #endif //__cplusplus
 
@@ -46,7 +48,7 @@ void BSPinit()
 	mymem_init(SRAMEX);		//初始化外部内存池
 	b_ostmr_init();  //timer3
 	b_systmr_init(); //timer4
-	lwip_timer_init();
+	lwip_timer_init(); //专为网络使用的定时器时钟
 //#ifdef USE_SRAM
 //	//todo yanly
 //#endif	
@@ -68,5 +70,8 @@ void BSPinit()
 //#ifdef USE_CAN1
 //	CAN1_Mode_Init(CAN_Mode_Normal);
 //#endif
+ 	exfuns_init();			//为fatfs相关变量申请内存 
+	f_mount(fs[2],"2:",1); 	//挂载U盘
   lwip_comm_init();
+  USBH_Init(&USB_OTG_Core,USB_OTG_FS_CORE_ID,&USB_Host,&USBH_MSC_cb,&USR_Callbacks);  //初始化USB主机
 }

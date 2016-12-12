@@ -11,7 +11,7 @@ Purpose:      OSTMR1 header file
 #define   _OSTMR1_H_
 
 #include "sys.h"
-
+#include "port.h"
 /*
   Input Args  : Null
   Output Args : Null

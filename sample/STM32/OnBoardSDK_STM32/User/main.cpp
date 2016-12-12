@@ -42,6 +42,7 @@ extern "C"
 #include "osqtmr.h"	
 #include "lwip_comm.h"
 #include "lwipapp.h"
+#include "usb_usr_process.h"
 }
 #endif //__cplusplus
 
@@ -140,7 +141,8 @@ int main()
 			printf("hello\n");
 //			usart1_tx_send_msg((uint8_t *)"hello world", sizeof("hello world"));
 		}
-		lwip_process();
+		lwip_prcs();
+		usb_user_prcs();
 	}
 //	led_test();
 }	

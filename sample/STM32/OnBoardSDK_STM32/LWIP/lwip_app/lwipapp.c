@@ -13,7 +13,7 @@
 #include "lwipapp.h"
  
 //LWIP 应用主流程 //add by yanly
-void lwip_process(void)
+void lwip_prcs(void)
 {
 	if((lwipdev.netstatus != NET_INIT_OK)&&(lwipdev.linkstatus == LINK_UP)) //网络没有初始化成功，并且网线有连接
 	{

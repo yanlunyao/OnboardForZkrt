@@ -3,7 +3,7 @@
 #define   _OSTMR0_H_
 
 #include "sys.h"
-
+#include "port.h"
 #define   NUM_OF_HW_TMR_SEPARATOR    2
 
 

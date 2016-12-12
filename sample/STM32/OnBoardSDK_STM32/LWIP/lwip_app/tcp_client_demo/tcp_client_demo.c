@@ -30,7 +30,7 @@ void tcp_client_set_remoteip(void)
 	lwipdev.remoteip[0]=lwipdev.ip[0];
 	lwipdev.remoteip[1]=lwipdev.ip[1];
 	lwipdev.remoteip[2]=lwipdev.ip[2]; 
-	lwipdev.remoteip[3]= 116; 
+	lwipdev.remoteip[3]= 111; 
 }
  
 u8 tcp_client_init(void)
