@@ -1,5 +1,22 @@
+/**
+  ******************************************************************************
+  * @file    tcp_client.h 
+  * @author  ZKRT
+  * @version V0.0.1
+  * @date    13-December-2016
+  * @brief   
+  ******************************************************************************
+  * @attention
+  *
+  * ...
+  *
+  ******************************************************************************
+  */
+  
+/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __TCP_CLIENT_DEMO_H
 #define __TCP_CLIENT_DEMO_H
+/* Includes ------------------------------------------------------------------*/
 #include "sys.h"
 #include "lwip/debug.h"
 #include "lwip/stats.h"
@@ -7,24 +24,13 @@
 #include "lwip/memp.h"
 #include "lwip/mem.h"
 #include "lwip_comm.h"
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//ALIENTEK STM32F407开发板
-//TCP Client 测试代码	   
-//正点原子@ALIENTEK
-//技术论坛:www.openedv.com
-//创建日期:2014/8/15
-//版本：V1.0
-//版权所有，盗版必究。
-//Copyright(C) 广州市星翼电子科技有限公司 2009-2019
-//All rights reserved									  
-//*******************************************************************************
-//修改信息
-//无
-////////////////////////////////////////////////////////////////////////////////// 	   
- 
+
+/* Exported constants --------------------------------------------------------*/ 
+
 #define TCP_CLIENT_RX_BUFSIZE	200		//定义tcp client最大接收数据长度
 #define	TCP_CLIENT_PORT			15010	//定义tcp client要连接的远端端口
+
+/* Exported types ------------------------------------------------------------*/
 
 //tcp服务器连接状态
 enum tcp_client_states
@@ -51,6 +57,9 @@ typedef struct{
 	u8 recvbuf[TCP_CLIENT_RX_BUFSIZE];
 }tcp_client_handle_s;
 
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+
 void tcp_client_set_remoteip(void);
 void tcp_client_test(void);//TCP Client测试函数
 err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err);
@@ -62,11 +71,19 @@ err_t tcp_client_sent(void *arg, struct tcp_pcb *tpcb, u16_t len);
 err_t tcp_client_senddata(struct tcp_pcb *tpcb, void *user_arg);
 err_t tcp_client_send(struct tcp_pcb *tpcb, void *user_arg, u8 *sendbuf, u16 buf_len);
 void tcp_client_connection_close(struct tcp_pcb *tpcb, struct tcp_client_struct * es );
-void tcp_client_test(void);
+void tcp_client_para_init(void);
+void tcp_client_prcs(void);
 
-#endif
+#endif /* __TCP_CLIENT_DEMO_H */
+/**
+  * @}
+  */ 
 
+/**
+  * @}
+  */
 
+/************************ (C) COPYRIGHT ZKRT *****END OF FILE****/
 
 
 

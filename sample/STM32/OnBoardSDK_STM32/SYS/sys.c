@@ -166,3 +166,6 @@ short tempture1 = 0;
 
 uint8_t msg_smartbat_buffer[30] = {0};
 
+/* Private variables ---------------------------------------------------------*/
+char zkrt_log_buf[300]; //
+

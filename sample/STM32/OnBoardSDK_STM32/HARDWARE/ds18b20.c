@@ -1,4 +1,24 @@
+/**
+  ******************************************************************************
+  * @file    ds18b20.c
+  * @author  ZKRT
+  * @version V0.0.1
+  * @date    13-December-2016
+  * @brief   IIC
+  *           + .. 
+  *           + [2] 旧的IO口PA7为PA3  --161213 by yanly
+	*																														
+  *         
+  ******************************************************************************
+  * @attention
+  *
+  * ...
+  *
+  ******************************************************************************  
+  */ 
+
 #include "ds18b20.h"
+#include "led.h"
 
 //复位DS18B20
 void DS18B20_Rst(uint8_t num)	   
@@ -120,30 +140,35 @@ uint8_t DS18B20_Init(void)
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOA时钟
 
   //GPIOG9
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7; //modify by yanly for(2)
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_3; 
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
  
- 	DS18B20_Rst(6);
-	if (DS18B20_Check(6) == 1)				
+// 	DS18B20_Rst(6); //modify by yanly
+	DS18B20_Rst(DS18B20_NUM1);
+	if (DS18B20_Check(DS18B20_NUM1) == 1)	//if (DS18B20_Check(6) == 1)				
 	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
-		return 1;										
+//		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 0;
+		return 1;		
 	}
 	delay_ms(10);								
 	
-	DS18B20_Rst(7);
-	if (DS18B20_Check(7) == 1)
+	DS18B20_Rst(DS18B20_NUM2);   //zkrt_notice: 如果第一个温度传感器没有接或者初始化失败，就不会初始化第二个温度传感器。会不会有问题？//by yanly
+	if (DS18B20_Check(DS18B20_NUM2) == 1)
 	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 0;
 		return 1;
 	}
 	delay_ms(10);
 	
-	GPIO_SetBits(GPIOC, GPIO_Pin_1);
+//	GPIO_SetBits(GPIOC, GPIO_Pin_1);
+	_ALARM_LED = 1;
 	
 	return 0;
 }

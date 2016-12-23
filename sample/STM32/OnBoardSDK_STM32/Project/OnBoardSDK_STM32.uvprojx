@@ -885,6 +885,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\SDIO\sdio_sdcard.c</FilePath>
             </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1031,6 +1036,11 @@
           <GroupName>LWIP-APP</GroupName>
           <Files>
             <File>
+              <FileName>lwipapp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LWIP\lwip_app\lwipapp.c</FilePath>
+            </File>
+            <File>
               <FileName>lwip_comm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LWIP\lwip_app\lwip_comm\lwip_comm.c</FilePath>
@@ -1041,9 +1051,9 @@
               <FilePath>..\LWIP\lwip_app\tcp_client_demo\tcp_client_demo.c</FilePath>
             </File>
             <File>
-              <FileName>lwipapp.c</FileName>
+              <FileName>tcp_server_demo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\LWIP\lwip_app\lwipapp.c</FilePath>
+              <FilePath>..\LWIP\lwip_app\tcp_server_demo\tcp_server_demo.c</FilePath>
             </File>
           </Files>
         </Group>

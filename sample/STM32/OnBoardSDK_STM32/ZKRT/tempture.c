@@ -14,8 +14,8 @@ void zkrt_read_tempture_ack(void)
 	zkrt_packet_t packet;
 	
 #if defined _TEMPTURE_IO_	
-	tempture0 = DS18B20_Get_Temp(6);									
-	tempture1 = DS18B20_Get_Temp(7);
+	tempture0 = DS18B20_Get_Temp(DS18B20_NUM1);									
+	tempture1 = DS18B20_Get_Temp(DS18B20_NUM2);
 #elif defined _TEMPTURE_ADC_
 
 	tempture0 = ADC1_get_value(_T1_value);								

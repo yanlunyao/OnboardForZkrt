@@ -57,7 +57,7 @@ void hwtmr0_init(void)
 
 
 //void hwtmr0_irqHandler()
-void TIM3_IRQHandler()
+void TIM8_BRK_TIM12_IRQHandler()
 {  
 	if (TIM_GetITStatus(TIMER_CHANNEL_1ST, TIM_IT_Update) != RESET)
 	{
@@ -105,9 +105,9 @@ static void TimerInit_1st(void)
 
   /* Time base configuration */ //5ms base //这里定时器的时钟为84Mhz
 
-  TIM_TimeBaseStructure.TIM_Period = (500 - 1); 
+  TIM_TimeBaseStructure.TIM_Period = (5000 - 1); 
 	
-  TIM_TimeBaseStructure.TIM_Prescaler = (APB1_TIMER_CLK*10 - 1);
+  TIM_TimeBaseStructure.TIM_Prescaler = (APB1_TIMER_CLK - 1);
 	
   TIM_TimeBaseStructure.TIM_ClockDivision = 0;
 

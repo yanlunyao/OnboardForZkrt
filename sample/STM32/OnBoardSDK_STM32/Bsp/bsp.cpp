@@ -56,16 +56,16 @@ void BSPinit()
 //	Timer1Config();
 //	Timer2Config();
 //#ifdef _TEMPTURE_IO_
-//	DS18B20_Init();																		
+	DS18B20_Init();																		
 //#endif
 //#ifdef USE_IIC	
 //	IIC_Init();
 //#endif	
 //	STMFLASH_Init();
-//	Usart_DJI_Config();
+	Usart_DJI_Config();
 	uart_init();
 //#ifdef _TEMPTURE_ADC_	
-//	ADC1_Init();
+	ADC1_Init();
 //#endif
 //#ifdef USE_CAN1
 //	CAN1_Mode_Init(CAN_Mode_Normal);

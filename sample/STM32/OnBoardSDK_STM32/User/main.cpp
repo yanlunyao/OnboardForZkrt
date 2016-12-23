@@ -114,9 +114,11 @@ extern "C" void sendpoll()
 }
 u8 q_task_2s_flag;
 u8 task_2s_flag;
+u8 test_adc;
 void app_2s_task(void)
 {
 	task_2s_flag = 1;
+	test_adc = ! test_adc;
 }
 void app_2s_qtask(void)
 {
@@ -125,8 +127,11 @@ void app_2s_qtask(void)
 int main()
 {
 	BSPinit();
+	lwip_prcs_init();
 	t_ostmr_insertTask(app_2s_task, 1000, OSTMR_PERIODIC);
 	t_systmr_insertQuickTask(app_2s_qtask, 500, OSTMR_PERIODIC);
+	ADC_SoftwareStartConv(ADC1); //Æô¶¯ADC
+//	led_test();
 	while(1)
 	{
 		if(q_task_2s_flag>=2)
@@ -138,7 +143,17 @@ int main()
 		{
 			task_2s_flag = 0;
 			PFout(9) = ! PFout(9);
-			printf("hello\n");
+//			printf("hello\n");
+//			printf("adc: %d\n", test_adc);
+//			ADC_SoftwareStartConv(ADC1); //Æô¶¯ADC
+//			ADC1_get_value(test_adc);
+			
+			//ds18b20 test
+//			tempture0 = DS18B20_Get_Temp(DS18B20_NUM1);									
+//			tempture1 = DS18B20_Get_Temp(DS18B20_NUM2);
+//			printf("DS18B20_NUM1 tempture=%d\n", tempture0);
+//			printf("DS18B20_NUM2 tempture=%d\n", tempture1);
+			
 //			usart1_tx_send_msg((uint8_t *)"hello world", sizeof("hello world"));
 		}
 		lwip_prcs();

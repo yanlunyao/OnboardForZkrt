@@ -23,7 +23,6 @@ IAP¿ÉÒÔÍ¨¹ýÈÎÒâ·½Ê½£¬ÈçÓ²¼þ¡¢ÍøÂç¡¢GPRSÔ¶³ÌÉý¼¶µÈ£¬Ð§ÂÊºÜ¸ß¡£ÍøÂç¡¢GPRSµÈ×îºó»¹Ê
 //×Ö0£ºT1
 //×Ö1£ºT2
 
-
 flash_type flash_buffer ={0XFEDCBA98, TEMPTURE_LOW_EXTRA, TEMPTURE_HIGH_EXTRA, 0X76543210};
 //¶ÁÈ¡Ö¸¶¨µØÖ·µÄ°ë×Ö(16Î»Êý¾Ý) 
 //faddr:¶ÁµØÖ· 

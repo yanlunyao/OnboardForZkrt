@@ -311,15 +311,17 @@ void main_zkrt_dji_recv(void)
 void zkrt_dji_read_heart_tempture(void)
 {
 #if defined _TEMPTURE_IO_
-  tempture0 = DS18B20_Get_Temp(6);
-  tempture1 = DS18B20_Get_Temp(7);
+  tempture0 = DS18B20_Get_Temp(DS18B20_NUM1);
+  tempture1 = DS18B20_Get_Temp(DS18B20_NUM2);
   if ((tempture0 == 0XFFF)||(tempture1 == 0XFFF))
   {
-    GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+//    GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 0;	//modify by yanly
   }
   else
   {
-    GPIO_SetBits(GPIOC, GPIO_Pin_1);
+//    GPIO_SetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 1;	//modify by yanly
   }
 #elif defined _TEMPTURE_ADC_
   tempture0 = ADC1_get_value(_T1_value);

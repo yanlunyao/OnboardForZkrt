@@ -27,7 +27,7 @@ typedef struct
 					//0,未获取DHCP地址;
 					//1,进入DHCP获取状态
 					//2,成功获取DHCP地址
-					//0XFF,获取失败.
+					//0XFF,获取失败.或者静态时
 	u8 netstatus; //网络状态，网络初始化状态
 	u8 linkstatus; //网线连接状态
 }__lwip_dev;

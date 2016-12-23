@@ -99,8 +99,8 @@ void USART1_Config(void)
 void USARTxNVIC_Config()
 {
   NVIC_InitTypeDef NVIC_InitStructure;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x03;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = NVIC_PPRIORITY_DJIUSART;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = NVIC_SUBPRIORITY_DJIUSART;
   NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
@@ -120,17 +120,17 @@ extern "C"
 {
 #endif //__cplusplus
 
-void USART1_IRQHandler(void)
-{
-  if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET)
-  {
-    come_data=USART_ReceiveData(USART1);
-    coreApi->byteHandler(come_data); //Data from M100 were committed to "byteHandler"
-    //  if (come_data==0x55)
-    //   printf("0x %x   ",come_data);
-  }
-
-}
+	
+	//void USART1_IRQHandler(void) //zkrt_todo: have to modify by yanly
+//{
+//  if (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == SET)
+//  {
+//    come_data=USART_ReceiveData(USART1);
+//    coreApi->byteHandler(come_data); //Data from M100 were committed to "byteHandler"
+//    //  if (come_data==0x55)
+//    //   printf("0x %x   ",come_data);
+//  }
+//}
 #ifdef __cplusplus
 }
 #endif //__cplusplus

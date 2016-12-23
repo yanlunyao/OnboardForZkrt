@@ -1,4 +1,24 @@
+/**
+  ******************************************************************************
+  * @file    ii.c
+  * @author  ZKRT
+  * @version V0.0.1
+  * @date    13-December-2016
+  * @brief   IIC
+  *           + .. 
+  *           + [2] 旧的IIC2改为IIC3，即SDA引脚PB9改为PC9，SCL引脚PB8改为PA8;  
+	*																														--161213 by yanly
+  *         
+  ******************************************************************************
+  * @attention
+  *
+  * ...
+  *
+  ******************************************************************************  
+  */ 
+
 #include "iic.h"
+#include "led.h"
 
 uint8_t  I2CPEC=0;
 
@@ -31,15 +51,18 @@ void IIC_Init(void)
 {			
   GPIO_InitTypeDef  GPIO_InitStructure;
 
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOB时钟
+//  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOB时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-  //GPIOB8,B9初始化设置
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
   GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;//开漏输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//50MHz
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
-  GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化
 	IIC_SCL=1;
 	IIC_SDA=1;
 }
@@ -470,9 +493,11 @@ void wait_keep_test(void)
 {
 	while (1)
 	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 0;	//modify by yanly
 		Wait(WAIT_KEEP);
-		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 1;
 		Wait(WAIT_KEEP);
 	}
 }
@@ -481,9 +506,11 @@ void wait_keephf_test(void)
 {
 	while (1)
 	{
-		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 0;	//modify by yanly
 		Wait(WAIT_KEEPHF);
-		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 1;	
 		Wait(WAIT_KEEPHF);
 	}
 }
@@ -501,8 +528,8 @@ void scl_set_low_test(void)
 			{
 			}
 		}while(t--);
-		GPIO_ResetBits(GPIOC, GPIO_Pin_1);
-		
+//		GPIO_ResetBits(GPIOC, GPIO_Pin_1); //PC1, ALM LED ? note by yanly
+		_ALARM_LED = 0;
 		t = WAIT_TURN;
 		do
 		{
@@ -510,7 +537,8 @@ void scl_set_low_test(void)
 			{
 			}
 		}while(t--);
-		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+//		GPIO_SetBits(GPIOC, GPIO_Pin_1);
+		_ALARM_LED = 1;
 	}
 }
 

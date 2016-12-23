@@ -1,14 +1,17 @@
 #ifndef __SYS_H
 #define __SYS_H	 
 
+/* Includes ------------------------------------------------------------------*/
 #include "hw_config.h"
 #include "stm32f4xx.h"
 #include <stdio.h>
 #include <string.h>
 
+/* Exported macro --------------------------------------------------------*/		
 #define _Send_Normal  1
 //#define _Send_test    2
-														  
+							
+/* Exported constants --------------------------------------------------------*/							
 //IO口操作宏定义
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
@@ -64,28 +67,6 @@
 #define PIin(n)    BIT_ADDR(GPIOI_IDR_Addr,n)  //输入
 
 #define MAVLINK_TX_INIT_VAL 0XFFFFFFFF 	
-extern volatile uint32_t TimingDelay;
-extern volatile uint32_t usart1_tx_flag;
-extern volatile uint32_t usart1_rx_flag;
-extern volatile uint32_t can_tx_flag;
-extern volatile uint32_t can_rx_flag;
-extern volatile uint32_t mavlink_send_flag;
-extern volatile uint32_t _160_read_flag;
-extern volatile uint32_t posion_recv_flag;
-extern volatile uint32_t throw_recv_flag;
-extern volatile uint32_t camera_recv_flag;
-extern volatile uint32_t _read_count;
-extern volatile uint32_t tcp_client_init_timeout;
-
-extern NVIC_InitTypeDef NVIC_InitStructure;
-
-void RCC_Configuration(void);
-void delay_init(void);
-void delay_us(uint16_t nus);					//最多传入999us
-void delay_ms(uint16_t nms);					//最多传入65535ms
-void NVICX_init(uint8_t pre_prrty, uint8_t sub_prrty);
- void DMAX_init(DMA_Stream_TypeDef *dma_stream, uint32_t dma_channel, uint32_t peripheral_addr, uint32_t memory_addr,uint32_t direction, 
-	uint16_t buff_size, uint32_t peripheral_size, uint32_t memory_size, uint32_t dma_mode, uint32_t dma_prrty);
 
 #if defined _TEMPTURE_IO_
 #define TEMPTURE_LOW_EXTRA  -550
@@ -99,32 +80,18 @@ void NVICX_init(uint8_t pre_prrty, uint8_t sub_prrty);
 #define TEMPTURE_HIGH_EXTRA 999
 #endif
 
-extern short glo_tempture_low;
-extern short glo_tempture_high;
-
-extern short last_tempture0;
-extern short last_tempture1;
-
-extern short tempture0;
-extern short tempture1;
-
-extern uint8_t msg_smartbat_buffer[30];
-
-
 //! This is the default status printing mechanism
-#define ZKRT_LOG(title, fmt, ...)                                  \
+#define ZKRT_LOG(title, fmt, ...)                                  				\
   if ((title))                                                            \
   {                                                                       \
-    fprintf(stout, "%s %s,line %d: " fmt,    \
+    int len = (sprintf(zkrt_log_buf, "%s %s,line %d: " fmt,    						\
         (title) ? (title) : "NONE", __func__, __LINE__, ##__VA_ARGS__));  \
-	}
-//    int len = (sprintf(DJI::onboardSDK::buffer, "%s %s,line %d: " fmt,    \
-//        (title) ? (title) : "NONE", __func__, __LINE__, ##__VA_ARGS__));  \
-//    if ((len != -1) && (len < 1024))                                      \
-//      printf("%s", buf);                                         \
-//    else                                                                  \
-//      printf("ERROR: log printer inner fault\n");           \
+    if ((len != -1) && (len < sizeof(zkrt_log_buf)))                                      	\
+      printf("%s", zkrt_log_buf);                                         \
+    else                                                                  \
+      printf("ERROR: log printer inner fault\n");           							\
   }
+#define LOG_NOTICE_DATA	
 #ifdef LOG_DEBUG_DATA
 #define LOG_DEBUG "DEBUG"
 #else
@@ -148,5 +115,43 @@ extern uint8_t msg_smartbat_buffer[30];
 #else
 #define LOG_NOTICE 0
 #endif
+
+/* Exported variables ---------------------------------------------------------*/
+extern volatile uint32_t TimingDelay;
+extern volatile uint32_t usart1_tx_flag;
+extern volatile uint32_t usart1_rx_flag;
+extern volatile uint32_t can_tx_flag;
+extern volatile uint32_t can_rx_flag;
+extern volatile uint32_t mavlink_send_flag;
+extern volatile uint32_t _160_read_flag;
+extern volatile uint32_t posion_recv_flag;
+extern volatile uint32_t throw_recv_flag;
+extern volatile uint32_t camera_recv_flag;
+extern volatile uint32_t _read_count;
+extern volatile uint32_t tcp_client_init_timeout;
+
+extern NVIC_InitTypeDef NVIC_InitStructure;
+
+
+extern short glo_tempture_low;
+extern short glo_tempture_high;
+
+extern short last_tempture0;
+extern short last_tempture1;
+
+extern short tempture0;
+extern short tempture1;
+
+extern uint8_t msg_smartbat_buffer[30];
+
+extern char zkrt_log_buf[300];
+
+/* Exported functions ------------------------------------------------------- */
+void RCC_Configuration(void);
+void delay_init(void);
+void delay_us(uint16_t nus);					//最多传入999us
+void delay_ms(uint16_t nms);					//最多传入65535ms
+void NVICX_init(uint8_t pre_prrty, uint8_t sub_prrty);
+void DMAX_init(DMA_Stream_TypeDef *dma_stream, uint32_t dma_channel, uint32_t peripheral_addr, uint32_t memory_addr,uint32_t direction, uint16_t buff_size, uint32_t peripheral_size, uint32_t memory_size, uint32_t dma_mode, uint32_t dma_prrty);
 
 #endif

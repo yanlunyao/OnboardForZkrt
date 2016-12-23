@@ -41,7 +41,7 @@ void hwtmr2_init(void)
 }
 
 //void hwtmr2_irqHandler(void)
-void TIM4_IRQHandler()  
+void TIM8_TRG_COM_TIM14_IRQHandler()  
 {  
 	if (TIM_GetITStatus(TIMER_CHANNEL_2ND, TIM_IT_Update) != RESET)
 	{
@@ -78,9 +78,9 @@ static void TimerInit_2nd(void)
   
   /* Time base configuration */  //这里定时器的时钟频率为84Mhz
 	
-  TIM_TimeBaseStructure.TIM_Period = (100 - 1); //1ms base 
+  TIM_TimeBaseStructure.TIM_Period = (1000 - 1); //1ms base 
  
-  TIM_TimeBaseStructure.TIM_Prescaler = (APB1_TIMER_CLK*10 - 1); 
+  TIM_TimeBaseStructure.TIM_Prescaler = (APB1_TIMER_CLK - 1); 
 
   TIM_TimeBaseStructure.TIM_ClockDivision = 0;
 

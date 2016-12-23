@@ -30,9 +30,13 @@ void tcp_client_set_remoteip(void)
 	lwipdev.remoteip[0]=lwipdev.ip[0];
 	lwipdev.remoteip[1]=lwipdev.ip[1];
 	lwipdev.remoteip[2]=lwipdev.ip[2]; 
-	lwipdev.remoteip[3]= 111; 
+	lwipdev.remoteip[3]= 105; 
 }
- 
+/**
+  * @brief  tcp client 初始化 
+  * @param  None
+  * @retval 0-init fail, 1-init success
+  */
 u8 tcp_client_init(void)
 {
 	struct tcp_pcb *tcppcb;  	//定义一个TCP服务器控制块
@@ -52,8 +56,12 @@ u8 tcp_client_init(void)
  	}
 	return 0;
 }	
-void tcp_client_test(void)
+void tcp_client_para_init(void)
+{}	
+void tcp_client_prcs(void)
 {
+//	if((lwipdev.dhcpstatus!=2)&&(lwipdev.dhcpstatus!=0xff))
+//		return;
 	switch(tcpc_s.connect_state)
 	{
 		case ES_TCPCLIENT_NONE: //第一次初始化
